@@ -29,10 +29,17 @@ e.g. `git prm --title "Testing pull request to Azure Devops using command line"`
 `git web` : Open Chrome and go to your pending pull request page.
 
 
-**Integrate Pull Request with SourceTree**
+**Integrate with SourceTree**
 
 Go to Tools > Options > Custom Actions
-* Add your caption
+
+Create Pull Request
+* Add your caption: Create Pull Request
 * Script to Run : git
 * Parameters: prmc
+
+Go to the pending pull request in browser
+* Add your caption: Check Pull Request
+* Script to Run : git
+* Parameters: web
 
