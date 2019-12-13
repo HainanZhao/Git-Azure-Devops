@@ -1,5 +1,10 @@
 # Git-Azure-Devops
 
+There are some missing pieces in the integration between git and Azure Devops. We face a problem to create pull request in command line or create a pull request in SourceTree. 
+
+Thanks to Terje Sandstrom, I've consolidated the steps in his blog into one powershell scripts. 
+http://hermit.no/visual-studio-and-azure-devops-git-extend-the-git-command-line-with-server-commands-part-2/
+
 **Prerequsite**
 
 * Install Git on your machine
