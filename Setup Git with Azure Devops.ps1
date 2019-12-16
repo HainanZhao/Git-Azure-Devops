@@ -2,8 +2,7 @@ $url = "https://github.com/Azure/azure-devops-cli-extension/releases/download/0.
 $outpath = "$PSScriptRoot\vsts-cli.msi"
 
 
-[void][System.Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')
-$gitToken = [Microsoft.VisualBasic.Interaction]::InputBox("Please enter your personal git access token", "Token", "")
+$gitToken = Read-Host -Prompt 'Enter your Personal Access Token'
 
 
 if ($gitToken -eq "")
@@ -15,6 +14,7 @@ Write-Output("Your git token: $gitTOken")
 
 Write-Output("Downloading file...")
 
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest  $url -OutFile $outpath
 
 Write-Output("Installing VSTS CLI...")
@@ -22,11 +22,13 @@ Write-Output("Installing VSTS CLI...")
 $args = @("/i",$outpath)
 Start-Process -Filepath msiexec -ArgumentList $args -Wait
 
+Write-Output("Refresh env viarables...")
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
 
 vsts login --token $gitToken
 vsts configure --use-git-aliases yes
 
+Write-Output("Setting git aliases...")
 git config --global alias.prb "!git pr create --target-branch"
 git config --global alias.prm "!git prb master --query pullRequestId"
 git config --global alias.prmc "!git prm --auto-complete"
